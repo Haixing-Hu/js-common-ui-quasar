@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import { Dialog } from 'quasar';
 import { ConfirmImpl } from '@qubit-ltd/common-ui';
-import getQuasarDialogIcon from './impl/get-quasar-dialog-icon';
+import getHtmlIcon from './impl/get-html-icon';
 
 /**
  * 基于Quasar框架实现的{@link ConfirmImpl}。
@@ -36,7 +36,7 @@ class QuasarConfirmImpl extends ConfirmImpl {
    */
   show(type, title, message, okLabel, cancelLabel) {
     // 根据options中的类别，显示不同的图标和风格
-    const icon = getQuasarDialogIcon(type);
+    const icon = getHtmlIcon(type);
     return new Promise((resolve, reject) => {
       Dialog.create({
         title: `${icon} ${title}`,

@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import { Notify } from 'quasar';
 import { NotifyImpl } from '@qubit-ltd/common-ui';
-import getQuasarDialogIcon from './impl/get-quasar-dialog-icon';
+import getQuasarIcon from './impl/get-quasar-icon';
 
 /**
  * 基于Quasar框架实现的{@link NotifyImpl}。
@@ -37,20 +37,17 @@ class QuasarNotifyImpl extends NotifyImpl {
    */
   show(type, message, options = {}) {
     // 根据options中的类别，显示不同的图标和风格
-    const typeIcon = getQuasarDialogIcon(type);
     const args = {
-      message: (options.icon ? '' : `${typeIcon} `) + message,
+      message,
+      icon: options.icon ?? getQuasarIcon(type),
       html: true,
       position: options.position,
       timeout: options.duration,
       multiLine: false,
     };
-    if (options.icon) {
-      args.icon = options.icon;
-    }
     const noop = () => {};
-    const closeButton = { label: '关闭', color: 'white', handler: options.closeAction ?? noop };
-    const detailButton = { label: options.detailLabel, color: 'white', handler: options.detailAction ?? noop };
+    const closeButton = { label: '关闭', handler: options.closeAction ?? noop };
+    const detailButton = { label: options.detailLabel, handler: options.detailAction ?? noop };
     if (options.showDetail && options.closeable) {
       args.actions = [detailButton, closeButton];
     } else if (options.showDetail) {
