@@ -8,6 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import { Notify } from 'quasar';
 import { NotifyImpl } from '@qubit-ltd/common-ui';
+import getQuasarColor from './impl/get-quasar-color';
 import getQuasarIcon from './impl/get-quasar-icon';
 
 /**
@@ -37,13 +38,18 @@ class QuasarNotifyImpl extends NotifyImpl {
    */
   show(type, message, options = {}) {
     // 根据options中的类别，显示不同的图标和风格
+    const iconColor = getQuasarColor(type);
     const args = {
       message,
       icon: options.icon ?? getQuasarIcon(type),
+      iconColor,
+      iconSize: '1.5em',
       html: true,
       position: options.position,
       timeout: options.duration,
       multiLine: false,
+      color: 'white',
+      textColor: 'black',
     };
     const noop = () => {};
     const closeButton = { label: '关闭', handler: options.closeAction ?? noop };
@@ -55,6 +61,7 @@ class QuasarNotifyImpl extends NotifyImpl {
     } else if (options.closeable) {
       args.actions = [closeButton];
     }
+    console.log('Notify: ', args);
     Notify.create(args);
   }
 }

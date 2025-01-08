@@ -1821,7 +1821,7 @@ __metadata:
     "@babel/preset-env": "npm:^7.26.0"
     "@babel/runtime": "npm:^7.26.0"
     "@jest/core": "npm:^29.7.0"
-    "@qubit-ltd/common-ui": "npm:^1.11.0"
+    "@qubit-ltd/common-ui": "npm:^1.12.0"
     "@qubit-ltd/eslint-config": "npm:^1.3.4"
     "@qubit-ltd/jsdoc-minami": "npm:^1.5.2"
     "@qubit-ltd/logging": "npm:^1.4.5"
@@ -1861,19 +1861,19 @@ __metadata:
     vue: "npm:^3.5.13"
   peerDependencies:
     "@babel/runtime": ^7.26.0
-    "@qubit-ltd/common-ui": ^1.11.0
+    "@qubit-ltd/common-ui": ^1.12.0
     quasar: ^2.17.6
     vue: ^3.5.13
   languageName: unknown
   linkType: soft
 
-"@qubit-ltd/common-ui@npm:^1.11.0":
-  version: 1.11.0
-  resolution: "@qubit-ltd/common-ui@npm:1.11.0::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fcommon-ui%2F-%2Fcommon-ui-1.11.0.tgz"
+"@qubit-ltd/common-ui@npm:^1.12.0":
+  version: 1.12.0
+  resolution: "@qubit-ltd/common-ui@npm:1.12.0::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fcommon-ui%2F-%2Fcommon-ui-1.12.0.tgz"
   peerDependencies:
     "@babel/runtime": ^7.26.0
     "@qubit-ltd/logging": ^1.4.5
-  checksum: 10c0/4eb5278bb428763e88b5ca9197c20a4ce0e621d5e9b1d7c7eb47299580dcad000d17f6bd584cd1f583d8ce3e0af83edec5b937c3adc682654791cfc3df688d04
+  checksum: 10c0/efd8132c25169fd208bdf0d6ebdcabb2ab46bf742bf827fb1c7f7962dd8cbc8807724a67425117b55d2ea6dbe75b95f3817b9a94cd677babfe130e1edce9de50
   languageName: node
   linkType: hard
 

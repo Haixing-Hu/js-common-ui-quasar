@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import {
   getFontAwesomeIcon,
-  getBootstrapIconIcon,
+  getBootstrapIcon,
   getMaterialSymbolIcon,
 } from '@qubit-ltd/common-ui';
 import getIconSetName from '../get-quasar-icon-set';
@@ -27,7 +27,7 @@ function getQuasarIcon(type) {
     case 'fontawesome':
       return getFontAwesomeIcon(type);
     case 'bootstrap':
-      return getBootstrapIconIcon(type);
+      return getBootstrapIcon(type);
     case 'material':
     default:
       return getMaterialSymbolIcon(type);

@@ -43,20 +43,25 @@ describe('QuasarNotifyImpl', () => {
     const wrapper = mount({
       template: '<div></div>',
       mounted() {
-        notify.show('info', 'message', {
+        notify.info('message', {
           closeAction,
         });
       },
     });
     await wrapper.vm.$nextTick();
     expect(Notify.create).toBeCalledWith({
-      message: '<i class="fa-solid fa-circle-info" style="font-size: 1.5em; color: #1976D2"></i> message',
+      message: 'message',
+      icon: 'fa-solid fa-circle-info',
+      iconColor: 'light-blue',
+      iconSize: '1.5em',
       html: true,
       position: 'top-right',
       timeout: 3000,
       multiLine: false,
+      color: 'white',
+      textColor: 'black',
       actions: [
-        { label: '关闭', color: 'white', handler: closeAction },
+        { label: '关闭', handler: closeAction },
       ],
     });
   });
@@ -69,7 +74,7 @@ describe('QuasarNotifyImpl', () => {
     const wrapper = mount({
       template: '<div></div>',
       mounted() {
-        notify.show('info', 'message', {
+        notify.warn('message', {
           closeable: true,
           closeAction,
           showDetail: true,
@@ -79,17 +84,19 @@ describe('QuasarNotifyImpl', () => {
     });
     await wrapper.vm.$nextTick();
     expect(Notify.create).toBeCalledWith({
-      message: '<i class="material-symbols-rounded" '
-        + 'style="font-variation-settings: \'FILL\' 1, \'wght\' 400, \'GRAD\' 0, \'opsz\' 48; '
-        + 'font-size: 1.5em; '
-        + 'color: #1976D2;">info</i> message',
+      message: 'message',
+      icon: 'warning',
+      iconColor: 'amber',
+      iconSize: '1.5em',
       html: true,
       position: 'top-right',
       timeout: 3000,
       multiLine: false,
+      color: 'white',
+      textColor: 'black',
       actions: [
-        { label: '详情', color: 'white', handler: detailAction },
-        { label: '关闭', color: 'white', handler: closeAction },
+        { label: '详情', handler: detailAction },
+        { label: '关闭', handler: closeAction },
       ],
     });
   });

@@ -49,7 +49,7 @@ describe('QuasarAlertImpl', () => {
     });
     await wrapper.vm.$nextTick();
     expect(Dialog.create).toBeCalledWith({
-      title: '<i class="fa-solid fa-circle-info" style="font-size: 1.5em; color: #1976D2"></i> title',
+      title: '<i class="fa-solid fa-circle-info" style="font-size: 1.5em; color: #1976D2;"></i> title',
       message: 'message',
       noEscDismiss: true,
       noBackdropDismiss: true,
