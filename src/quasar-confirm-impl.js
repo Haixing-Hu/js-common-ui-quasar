@@ -39,7 +39,7 @@ class QuasarConfirmImpl extends ConfirmImpl {
     const icon = getQuasarDialogIcon(type);
     return new Promise((resolve, reject) => {
       Dialog.create({
-        title: icon + title,
+        title: `${icon} ${title}`,
         message,
         ok: okLabel,
         cancel: cancelLabel,

@@ -33,7 +33,7 @@ class QuasarAlertImpl extends AlertImpl {
     const icon = getQuasarDialogIcon(type);
     return new Promise((resolve) => {
       Dialog.create({
-        title: icon + title,
+        title: `${icon} ${title}`,
         message,
         noEscDismiss: true,
         noBackdropDismiss: true,

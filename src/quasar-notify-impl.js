@@ -39,7 +39,7 @@ class QuasarNotifyImpl extends NotifyImpl {
     // 根据options中的类别，显示不同的图标和风格
     const typeIcon = getQuasarDialogIcon(type);
     const args = {
-      message: (options.icon ? '' : typeIcon) + message,
+      message: (options.icon ? '' : `${typeIcon} `) + message,
       html: true,
       position: options.position,
       timeout: options.duration,
@@ -48,15 +48,15 @@ class QuasarNotifyImpl extends NotifyImpl {
     if (options.icon) {
       args.icon = options.icon;
     }
+    const noop = () => {};
+    const closeButton = { label: '关闭', color: 'white', handler: options.closeAction ?? noop };
+    const detailButton = { label: options.detailLabel, color: 'white', handler: options.detailAction ?? noop };
     if (options.showDetail && options.closeable) {
-      args.actions = [
-        { label: options.detailLabel, color: 'white', handler: options.detailAction },
-        { label: '关闭', color: 'white', handler: options.closeAction },
-      ];
+      args.actions = [detailButton, closeButton];
     } else if (options.showDetail) {
-      args.actions = [{ label: options.detailLabel, color: 'white', handler: options.detailAction }];
+      args.actions = [detailButton];
     } else if (options.closeable) {
-      args.actions = [{ icon: 'close', color: 'white', handler: options.closeAction }];
+      args.actions = [closeButton];
     }
     Notify.create(args);
   }

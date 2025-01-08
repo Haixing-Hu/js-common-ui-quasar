@@ -50,13 +50,13 @@ describe('QuasarNotifyImpl', () => {
     });
     await wrapper.vm.$nextTick();
     expect(Notify.create).toBeCalledWith({
-      message: '<i class="fa-solid fa-circle-info fa-lg" style="color: #1976D2"></i>message',
+      message: '<i class="fa-solid fa-circle-info" style="font-size: 1.5em; color: #1976D2"></i> message',
       html: true,
       position: 'top-right',
       timeout: 3000,
       multiLine: false,
       actions: [
-        { icon: 'close', color: 'white', handler: closeAction },
+        { label: '关闭', color: 'white', handler: closeAction },
       ],
     });
   });
@@ -81,7 +81,8 @@ describe('QuasarNotifyImpl', () => {
     expect(Notify.create).toBeCalledWith({
       message: '<i class="material-symbols-rounded" '
         + 'style="font-variation-settings: \'FILL\' 1, \'wght\' 400, \'GRAD\' 0, \'opsz\' 48; '
-        + 'color: #1976D2;">info</i>message',
+        + 'font-size: 1.5em; '
+        + 'color: #1976D2;">info</i> message',
       html: true,
       position: 'top-right',
       timeout: 3000,
