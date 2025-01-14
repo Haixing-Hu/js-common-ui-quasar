@@ -6,7 +6,6 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { Notify } from 'quasar';
 import { NotifyImpl } from '@qubit-ltd/common-ui';
 import getQuasarColor from './impl/get-quasar-color';
 import getQuasarIcon from './impl/get-quasar-icon';
@@ -17,6 +16,24 @@ import getQuasarIcon from './impl/get-quasar-icon';
  * @author 胡海星
  */
 class QuasarNotifyImpl extends NotifyImpl {
+  /**
+   * 创建一个新的{@link QuasarLoadingImpl}。
+   *
+   * 注意我们不能直接在这个类库中从`quasar`导入`Notify.`，因为这样导入的`Notify`对象
+   * 是个未被安装的插件。只有在最终的`quasar`项目中，`quasar-cli`才会根据配置自动安装
+   * `Dialog`插件并将所有从`quasar`中导入的`Notify`对象修改为已经安装的插件。
+   *
+   * @param Notify
+   *     一个Quasar对`Notify`组件。必须是最终项目从Quasar框架导入的`Notify`组件。
+   */
+  constructor(Notify) {
+    super();
+    if (!Notify || !Notify.create) {
+      throw new Error('The quasar `Notify` plugin must be installed in `quasar.conf.js`.');
+    }
+    this.Notify = Notify;
+  }
+
   /**
    * 显示一条通知消息。
    *
@@ -61,8 +78,7 @@ class QuasarNotifyImpl extends NotifyImpl {
     } else if (options.closeable) {
       args.actions = [closeButton];
     }
-    console.log('Notify: ', args);
-    Notify.create(args);
+    this.Notify.create(args);
   }
 }
 

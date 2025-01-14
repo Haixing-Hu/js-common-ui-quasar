@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import { mount } from '@vue/test-utils';
-import { Dialog, IconSet } from 'quasar';
+import { Dialog, Loading, IconSet } from 'quasar';
 import { alert, loading } from '@qubit-ltd/common-ui';
 import { QuasarAlertImpl, QuasarLoadingImpl } from '../src';
 
@@ -33,8 +33,8 @@ jest.mock('quasar', () => ({
 
 // Mock the Dialog.create method
 
-loading.setImpl(new QuasarLoadingImpl());
-alert.setImpl(new QuasarAlertImpl());
+loading.setImpl(new QuasarLoadingImpl(Loading));
+alert.setImpl(new QuasarAlertImpl(Dialog));
 
 describe('QuasarAlertImpl', () => {
   it('should show an alert dialog with fontawesome icon set', async () => {
