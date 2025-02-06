@@ -60,6 +60,7 @@ class QuasarConfirmImpl extends ConfirmImpl {
         message,
         ok: okLabel,
         cancel: cancelLabel,
+        focus: 'cancel',      // 默认焦点在取消按钮上
         noEscDismiss: true,
         noBackdropDismiss: true,
         noRouteDismiss: false,
