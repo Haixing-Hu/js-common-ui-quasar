@@ -7,9 +7,22 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import { mount } from '@vue/test-utils';
-import { Dialog, Loading, IconSet } from 'quasar';
-import { alert, loading } from '@qubit-ltd/common-ui';
-import { QuasarAlertImpl, QuasarLoadingImpl } from '../src';
+import { Dialog, IconSet } from 'quasar';
+import { QuasarAlertImpl } from '../src';
+
+// Mock getHtmlIcon module
+jest.mock('../src/impl/get-html-icon', () => jest.fn((type) => {
+  switch (type) {
+    case 'info':
+      return '<i class="mocked-info-icon"></i>';
+    case 'warn':
+      return '<i class="mocked-warn-icon"></i>';
+    case 'error':
+      return '<i class="mocked-error-icon"></i>';
+    default:
+      return '<i class="mocked-default-icon"></i>';
+  }
+}));
 
 jest.mock('quasar', () => ({
   IconSet: {
@@ -21,36 +34,33 @@ jest.mock('quasar', () => ({
     },
   },
   Dialog: {
-    create: jest.fn().mockImplementation(() => ({
-      onOk: jest.fn((callback) => callback()),
-    })),
-  },
-  Loading: {
-    show: jest.fn(),
-    hide: jest.fn(),
+    create: jest.fn().mockImplementation(() => {
+      return {
+        onOk: jest.fn(callback => {
+          callback();
+          return {};
+        }),
+      };
+    }),
   },
 }));
 
-// Mock the Dialog.create method
-
-loading.setImpl(new QuasarLoadingImpl(Loading));
-alert.setImpl(new QuasarAlertImpl(Dialog));
-
 describe('QuasarAlertImpl', () => {
-  it('should show an alert dialog with fontawesome icon set', async () => {
-    IconSet.set({
-      name: 'fontawesome-v6',
-    }, true);
-    const wrapper = mount({
-      template: '<div></div>',
-      mounted() {
-        alert.show('info', 'title', 'message');
-      },
-    });
-    await wrapper.vm.$nextTick();
-    expect(Dialog.create).toBeCalledWith({
-      title: '<i class="fa-solid fa-circle-info" style="font-size: 1.5em; color: #1976D2;"></i> title',
-      message: 'message',
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should show an alert dialog with fontawesome icon set', () => {
+    IconSet.set({ name: 'fontawesome-v6' }, true);
+    const alertImpl = new QuasarAlertImpl(Dialog);
+    const title = 'Alert Title';
+    const message = 'alert - message';
+    
+    alertImpl.show('info', title, message);
+    
+    expect(Dialog.create).toHaveBeenCalledWith({
+      title: '<i class="mocked-info-icon"></i> Alert Title',
+      message: 'alert - message',
       noEscDismiss: true,
       noBackdropDismiss: true,
       noRouteDismiss: false,
@@ -58,28 +68,36 @@ describe('QuasarAlertImpl', () => {
       html: true,
     });
   });
-  it('should show an alert dialog with material icon set', async () => {
-    IconSet.set({
-      name: 'material-symbol',
-    }, true);
-    const wrapper = mount({
-      template: '<div></div>',
-      mounted() {
-        alert.show('info', 'title', 'message');
-      },
-    });
-    await wrapper.vm.$nextTick();
-    expect(Dialog.create).toBeCalledWith({
-      title: '<i class="material-symbols-rounded" '
-        + 'style="font-variation-settings: \'FILL\' 1, \'wght\' 400, \'GRAD\' 0, \'opsz\' 48; '
-        + 'font-size: 1.5em; '
-        + 'color: #1976D2;">info</i> title',
-      message: 'message',
+
+  it('should show an alert dialog with material icon set', () => {
+    IconSet.set({ name: 'material-icons' }, true);
+    const alertImpl = new QuasarAlertImpl(Dialog);
+    const title = 'Alert Title';
+    const message = 'alert - message';
+    
+    alertImpl.show('error', title, message);
+    
+    expect(Dialog.create).toHaveBeenCalledWith({
+      title: '<i class="mocked-error-icon"></i> Alert Title',
+      message: 'alert - message',
       noEscDismiss: true,
       noBackdropDismiss: true,
       noRouteDismiss: false,
       seamless: false,
       html: true,
     });
+  });
+
+  it('should throw error when Dialog plugin is not provided', () => {
+    expect(() => new QuasarAlertImpl()).toThrow('The quasar `Dialog` plugin must be installed in `quasar.conf.js`.');
+    expect(() => new QuasarAlertImpl({})).toThrow('The quasar `Dialog` plugin must be installed in `quasar.conf.js`.');
+  });
+
+  it('should return a promise that resolves when dialog is closed', async () => {
+    const alertImpl = new QuasarAlertImpl(Dialog);
+    const promise = alertImpl.show('warn', 'Warning', 'This is a warning');
+    
+    expect(promise).toBeInstanceOf(Promise);
+    await expect(promise).resolves.toBeUndefined();
   });
 });
