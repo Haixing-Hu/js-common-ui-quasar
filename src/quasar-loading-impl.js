@@ -49,7 +49,7 @@ class QuasarLoadingImpl extends LoadingImpl {
   /**
    * 清除当前载入提示遮盖层，隐藏载入提示框。
    */
-  hind() {
+  hide() {
     this.Loading.hide();
   }
 }
