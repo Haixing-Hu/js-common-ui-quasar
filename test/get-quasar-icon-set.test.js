@@ -6,8 +6,8 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import getQuasarIconSetName from '../src/get-quasar-icon-set';
 import { IconSet } from 'quasar';
+import getQuasarIconSetName from '../src/get-quasar-icon-set';
 
 jest.mock('quasar', () => ({
   IconSet: {

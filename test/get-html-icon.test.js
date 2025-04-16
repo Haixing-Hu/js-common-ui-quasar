@@ -98,4 +98,4 @@ describe('getHtmlIcon', () => {
     const expectedStyle = "font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48; font-size: 1.5em; color: #21BA45;";
     expect(icon).toBe(`<i class="material-symbols-rounded" style="${expectedStyle}">check_circle</i>`);
   });
-}); 
+});

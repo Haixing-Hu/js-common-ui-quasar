@@ -36,7 +36,7 @@ class QuasarNotifyImpl extends NotifyImpl {
 
   /**
    * 获取图标，如果未提供则使用默认图标
-   * 
+   *
    * @param {string} type - 消息类型
    * @param {object} options - 选项对象
    * @returns {string|any} 图标
@@ -51,18 +51,18 @@ class QuasarNotifyImpl extends NotifyImpl {
 
   /**
    * 获取处理函数，如果未提供则使用默认的无操作函数
-   * 
+   *
    * @param {Function|undefined} handler - 可能的处理函数
    * @returns {Function} 处理函数
    * @private
    */
   _getHandler(handler) {
     const noop = () => {};
-    
+
     if (handler === undefined || handler === null) {
       return noop;
     }
-    
+
     return handler;
   }
 
@@ -80,19 +80,19 @@ class QuasarNotifyImpl extends NotifyImpl {
       // 既不显示详情按钮也不显示关闭按钮
       return;
     }
-    
+
     if (options.showDetail && options.closeable) {
       // 同时显示详情按钮和关闭按钮
       args.actions = [detailButton, closeButton];
       return;
     }
-    
+
     if (options.showDetail) {
       // 只显示详情按钮
       args.actions = [detailButton];
       return;
     }
-    
+
     // 只显示关闭按钮
     args.actions = [closeButton];
   }
@@ -120,11 +120,11 @@ class QuasarNotifyImpl extends NotifyImpl {
   show(type, message, options = {}) {
     // 根据options中的类别，显示不同的图标和风格
     const iconColor = getQuasarColor(type);
-    
+
     // 获取图标
     /* istanbul ignore next */
     const icon = this._getIcon(type, options);
-    
+
     const args = {
       message,
       icon,
@@ -137,17 +137,17 @@ class QuasarNotifyImpl extends NotifyImpl {
       color: 'white',
       textColor: 'black',
     };
-    
+
     // 获取关闭按钮和详情按钮的处理函数
     const closeHandler = this._getHandler(options.closeAction);
     const detailHandler = this._getHandler(options.detailAction);
-    
+
     const closeButton = { label: '关闭', handler: closeHandler };
     const detailButton = { label: options.detailLabel, handler: detailHandler };
-    
+
     // 设置操作按钮
     this._setActions(args, options, closeButton, detailButton);
-    
+
     this.Notify.create(args);
   }
 }

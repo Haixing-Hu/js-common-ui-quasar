@@ -35,24 +35,22 @@ jest.mock('quasar', () => ({
   },
   Dialog: {
     create: jest.fn().mockImplementation(() => ({
-      onOk: jest.fn(callback => ({
-        onCancel: jest.fn(errorCallback => {
+      onOk: jest.fn((callback) => ({
+        onCancel: jest.fn((errorCallback) => ({
           // 返回完整的模拟对象
-          return {
-            _callback: callback,
-            _errorCallback: errorCallback,
-            // 模拟用户点击 OK
-            triggerOk: () => {
-              callback();
-              return true;
-            },
-            // 模拟用户点击 Cancel
-            triggerCancel: () => {
-              errorCallback();
-              return true;
-            },
-          };
-        }),
+          _callback: callback,
+          _errorCallback: errorCallback,
+          // 模拟用户点击 OK
+          triggerOk: () => {
+            callback();
+            return true;
+          },
+          // 模拟用户点击 Cancel
+          triggerCancel: () => {
+            errorCallback();
+            return true;
+          },
+        })),
       })),
     })),
   },
@@ -67,14 +65,12 @@ describe('QuasarConfirmImpl', () => {
     confirmImpl = new QuasarConfirmImpl(Dialog);
     // 修改 mockDialogInstance 的实现，确保 onCancel 调用回调函数
     mockDialogInstance = {
-      onOk: jest.fn().mockImplementation(callback => {
-        return {
-          onCancel: jest.fn(errorCallback => {
-            setTimeout(() => errorCallback(), 0); // 使用 setTimeout 确保回调在 Promise 注册后执行
-            return mockDialogInstance;
-          }),
-        };
-      }),
+      onOk: jest.fn().mockImplementation((callback) => ({
+        onCancel: jest.fn((errorCallback) => {
+          setTimeout(() => errorCallback(), 0); // 使用 setTimeout 确保回调在 Promise 注册后执行
+          return mockDialogInstance;
+        }),
+      })),
     };
     Dialog.create.mockReturnValue(mockDialogInstance);
   });
@@ -96,7 +92,7 @@ describe('QuasarConfirmImpl', () => {
     const cancelLabel = 'No';
 
     const promise = confirmImpl.show(type, title, message, okLabel, cancelLabel);
-    
+
     expect(Dialog.create).toHaveBeenCalledWith({
       title: '<i class="mocked-info-icon"></i> Confirm Title',
       message: 'Confirm Message',
@@ -115,7 +111,7 @@ describe('QuasarConfirmImpl', () => {
     // 创建一个简单实现，同步执行 OK 回调
     const simpleDialog = {
       create: jest.fn().mockImplementation(() => ({
-        onOk: jest.fn(cb => {
+        onOk: jest.fn((cb) => {
           cb(); // 立即调用回调
           return {
             onCancel: jest.fn(),
@@ -123,9 +119,9 @@ describe('QuasarConfirmImpl', () => {
         }),
       })),
     };
-    
+
     const simpleConfirm = new QuasarConfirmImpl(simpleDialog);
-    
+
     // 返回一个已解析的 Promise
     return simpleConfirm.show('info', 'Title', 'Message');
   });
@@ -135,24 +131,21 @@ describe('QuasarConfirmImpl', () => {
     const simpleDialog = {
       create: jest.fn().mockImplementation(() => ({
         onOk: jest.fn(() => ({
-          onCancel: jest.fn(cb => {
+          onCancel: jest.fn((cb) => {
             cb(); // 立即调用回调，表示取消操作
             return {};
           }),
         })),
       })),
     };
-    
+
     const simpleConfirm = new QuasarConfirmImpl(simpleDialog);
-    
+
     // 返回一个将被拒绝的 Promise
     return simpleConfirm.show('warn', 'Warning', 'Are you sure?')
       .then(() => {
         throw new Error('Promise should be rejected');
       })
-      .catch(() => {
-        // 成功捕获拒绝状态
-        return Promise.resolve();
-      });
+      .catch(() => Promise.resolve());  // 成功捕获拒绝状态
   });
-}); 
+});

@@ -52,4 +52,4 @@ describe('QuasarLoadingImpl', () => {
     loadingImpl.hide();
     expect(Loading.hide).toHaveBeenCalledTimes(1);
   });
-}); 
+});

@@ -34,14 +34,12 @@ jest.mock('quasar', () => ({
     },
   },
   Dialog: {
-    create: jest.fn().mockImplementation(() => {
-      return {
-        onOk: jest.fn(callback => {
-          callback();
-          return {};
-        }),
-      };
-    }),
+    create: jest.fn().mockImplementation(() => ({
+      onOk: jest.fn((callback) => {
+        callback();
+        return {};
+      }),
+    })),
   },
 }));
 
@@ -55,9 +53,9 @@ describe('QuasarAlertImpl', () => {
     const alertImpl = new QuasarAlertImpl(Dialog);
     const title = 'Alert Title';
     const message = 'alert - message';
-    
+
     alertImpl.show('info', title, message);
-    
+
     expect(Dialog.create).toHaveBeenCalledWith({
       title: '<i class="mocked-info-icon"></i> Alert Title',
       message: 'alert - message',
@@ -74,9 +72,9 @@ describe('QuasarAlertImpl', () => {
     const alertImpl = new QuasarAlertImpl(Dialog);
     const title = 'Alert Title';
     const message = 'alert - message';
-    
+
     alertImpl.show('error', title, message);
-    
+
     expect(Dialog.create).toHaveBeenCalledWith({
       title: '<i class="mocked-error-icon"></i> Alert Title',
       message: 'alert - message',
@@ -96,7 +94,7 @@ describe('QuasarAlertImpl', () => {
   it('should return a promise that resolves when dialog is closed', async () => {
     const alertImpl = new QuasarAlertImpl(Dialog);
     const promise = alertImpl.show('warn', 'Warning', 'This is a warning');
-    
+
     expect(promise).toBeInstanceOf(Promise);
     await expect(promise).resolves.toBeUndefined();
   });

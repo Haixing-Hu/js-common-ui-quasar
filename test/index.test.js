@@ -60,4 +60,4 @@ describe('index.js exports', () => {
     jest.resetModules();
     require('../src/index');
   });
-}); 
+});

@@ -39,4 +39,4 @@ describe('getQuasarColor', () => {
     expect(getQuasarColor(null)).toBe('#616161');
     expect(getQuasarColor(undefined)).toBe('#616161');
   });
-}); 
+});
