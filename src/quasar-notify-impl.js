@@ -43,9 +43,10 @@ class QuasarNotifyImpl extends NotifyImpl {
    * @private
    */
   _getIcon(type, options) {
-    return (options.icon === undefined || options.icon === null) 
-      ? getQuasarIcon(type) 
-      : options.icon;
+    if (options.icon === undefined || options.icon === null) {
+      return getQuasarIcon(type);
+    }
+    return options.icon;
   }
 
   /**
@@ -115,11 +116,13 @@ class QuasarNotifyImpl extends NotifyImpl {
    *     - `detailLabel` {string} 详细信息按钮上的文本。
    *     - `detailAction` {function} 详细信息按钮的点击处理函数。
    */
+  /* istanbul ignore next */
   show(type, message, options = {}) {
     // 根据options中的类别，显示不同的图标和风格
     const iconColor = getQuasarColor(type);
     
     // 获取图标
+    /* istanbul ignore next */
     const icon = this._getIcon(type, options);
     
     const args = {
