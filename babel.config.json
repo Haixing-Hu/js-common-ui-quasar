@@ -4,7 +4,6 @@
     "@vue/babel-preset-jsx"
   ],
   "plugins": [
-    ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
     "@babel/plugin-transform-runtime"
   ]
 }
