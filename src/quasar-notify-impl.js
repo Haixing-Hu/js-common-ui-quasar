@@ -29,7 +29,7 @@ class QuasarNotifyImpl extends NotifyImpl {
   constructor(Notify) {
     super();
     if (!Notify || !Notify.create) {
-      throw new Error('The quasar `Notify` plugin must be installed in `quasar.conf.js`.');
+      throw new Error('The quasar `Notify` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarNotifyImpl.');
     }
     this.Notify = Notify;
   }

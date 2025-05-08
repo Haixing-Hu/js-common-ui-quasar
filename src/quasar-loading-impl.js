@@ -27,7 +27,7 @@ class QuasarLoadingImpl extends LoadingImpl {
   constructor(Loading) {
     super();
     if (!Loading || !Loading.show || !Loading.hide) {
-      throw new Error('The quasar `Loading` plugin must be installed in `quasar.conf.js`.');
+      throw new Error('The quasar `Loading` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarLoadingImpl.');
     }
     this.Loading = Loading;
   }

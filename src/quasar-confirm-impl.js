@@ -28,7 +28,7 @@ class QuasarConfirmImpl extends ConfirmImpl {
   constructor(Dialog) {
     super();
     if (!Dialog || !Dialog.create) {
-      throw new Error('The quasar `Dialog` plugin must be installed in `quasar.conf.js`.');
+      throw new Error('The quasar `Dialog` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarConfirmImpl.');
     }
     this.Dialog = Dialog;
   }
