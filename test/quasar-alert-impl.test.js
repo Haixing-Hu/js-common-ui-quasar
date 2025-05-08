@@ -87,8 +87,8 @@ describe('QuasarAlertImpl', () => {
   });
 
   it('should throw error when Dialog plugin is not provided', () => {
-    expect(() => new QuasarAlertImpl()).toThrow('The quasar `Dialog` plugin must be installed in `quasar.conf.js`.');
-    expect(() => new QuasarAlertImpl({})).toThrow('The quasar `Dialog` plugin must be installed in `quasar.conf.js`.');
+    expect(() => new QuasarAlertImpl()).toThrow('The quasar `Dialog` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarAlertImpl.');
+    expect(() => new QuasarAlertImpl({})).toThrow('The quasar `Dialog` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarAlertImpl.');
   });
 
   it('should return a promise that resolves when dialog is closed', async () => {

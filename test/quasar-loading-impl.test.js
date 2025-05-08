@@ -29,10 +29,10 @@ describe('QuasarLoadingImpl', () => {
   });
 
   it('should throw error when Loading plugin is not provided', () => {
-    expect(() => new QuasarLoadingImpl()).toThrow('The quasar `Loading` plugin must be installed in `quasar.conf.js`.');
-    expect(() => new QuasarLoadingImpl({})).toThrow('The quasar `Loading` plugin must be installed in `quasar.conf.js`.');
-    expect(() => new QuasarLoadingImpl({ show: jest.fn() })).toThrow('The quasar `Loading` plugin must be installed in `quasar.conf.js`.');
-    expect(() => new QuasarLoadingImpl({ hide: jest.fn() })).toThrow('The quasar `Loading` plugin must be installed in `quasar.conf.js`.');
+    expect(() => new QuasarLoadingImpl()).toThrow('The quasar `Loading` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarLoadingImpl.');
+    expect(() => new QuasarLoadingImpl({})).toThrow('The quasar `Loading` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarLoadingImpl.');
+    expect(() => new QuasarLoadingImpl({ show: jest.fn() })).toThrow('The quasar `Loading` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarLoadingImpl.');
+    expect(() => new QuasarLoadingImpl({ hide: jest.fn() })).toThrow('The quasar `Loading` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarLoadingImpl.');
   });
 
   it('should show loading with default options', () => {

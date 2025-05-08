@@ -80,8 +80,8 @@ describe('QuasarConfirmImpl', () => {
   });
 
   it('should throw error when Dialog plugin is not provided', () => {
-    expect(() => new QuasarConfirmImpl()).toThrow('The quasar `Dialog` plugin must be installed in `quasar.conf.js`.');
-    expect(() => new QuasarConfirmImpl({})).toThrow('The quasar `Dialog` plugin must be installed in `quasar.conf.js`.');
+    expect(() => new QuasarConfirmImpl()).toThrow('The quasar `Dialog` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarConfirmImpl.');
+    expect(() => new QuasarConfirmImpl({})).toThrow('The quasar `Dialog` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarConfirmImpl.');
   });
 
   it('should show confirm dialog with all parameters', async () => {

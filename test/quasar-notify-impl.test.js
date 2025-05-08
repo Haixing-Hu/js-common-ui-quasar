@@ -68,8 +68,8 @@ describe('QuasarNotifyImpl', () => {
   });
 
   it('should throw error when Notify plugin is not provided', () => {
-    expect(() => new QuasarNotifyImpl()).toThrow('The quasar `Notify` plugin must be installed in `quasar.conf.js`.');
-    expect(() => new QuasarNotifyImpl({})).toThrow('The quasar `Notify` plugin must be installed in `quasar.conf.js`.');
+    expect(() => new QuasarNotifyImpl()).toThrow('The quasar `Notify` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarNotifyImpl.');
+    expect(() => new QuasarNotifyImpl({})).toThrow('The quasar `Notify` plugin must be installed in `quasar.conf.js` and provided in the constructor of QuasarNotifyImpl.');
   });
 
   it('should directly pass through the Notify.create call', async () => {
